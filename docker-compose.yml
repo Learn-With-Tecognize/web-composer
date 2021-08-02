@@ -11,18 +11,38 @@ services:
             - ./auth:/usr/src/app
         networks:
             - sc_webcomposer
+        depends_on: 
+            - db
 
     client:
         build: 
-            dockerfile: auth/Dockerfile
+            dockerfile: client/Dockerfile
             context: ./
         ports: 
-            - "${AUTH_SVC_PORT}:8081"
+            - "${CLIENT_SVC_PORT}:3000"
         volumes: 
-            - ./auth:/usr/src/app
+            - ./client:/usr/src/app
         networks:
             - sc_webcomposer
+        environment: 
+            - CHOKIDAR_USEPOLLING=true
 
+    db:
+        build: 
+            dockerfile: db/Dockerfile
+            context: ./
+        # ports: 
+            # - "${CLIENT_SVC_PORT}:DB_PORT" are we accepting connection from the outer world?
+        volumes: 
+            - ./db/data:/home #testing purpose
+        networks:
+            - sc_webcomposer
+        environment: 
+            - "DB_USERNAME=${DB_USERNAME}"
+            - "DB_PASSWORD=${DB_PASSWORD}"
+            - "DB_PORT=${DB_PORT}"
+            - "DB_HOST=${DB_HOST}"
+        
 networks:
     sc_webcomposer:
         driver: bridge 
