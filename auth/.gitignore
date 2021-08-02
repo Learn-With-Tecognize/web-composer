@@ -1,0 +1,6 @@
+# Ignore everything
+*
+
+#keep gitignore and gitkeep
+!.gitignore
+!.gitkeep
