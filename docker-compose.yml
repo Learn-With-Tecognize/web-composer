@@ -1,0 +1,28 @@
+version: '3'
+
+services: 
+    auth:
+        build: 
+            dockerfile: auth/Dockerfile
+            context: ./
+        ports: 
+            - "${AUTH_SVC_PORT}:8081"
+        volumes: 
+            - ./auth:/usr/src/app
+        networks:
+            - sc_webcomposer
+
+    client:
+        build: 
+            dockerfile: auth/Dockerfile
+            context: ./
+        ports: 
+            - "${AUTH_SVC_PORT}:8081"
+        volumes: 
+            - ./auth:/usr/src/app
+        networks:
+            - sc_webcomposer
+
+networks:
+    sc_webcomposer:
+        driver: bridge 
