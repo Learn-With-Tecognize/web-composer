@@ -1,0 +1,8 @@
+#Every service should have the following gitignore
+
+# Ignore everything
+*
+
+#keep gitignore and gitkeep
+!.gitignore
+!.gitkeep
